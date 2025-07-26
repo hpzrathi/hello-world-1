@@ -1,15 +1,29 @@
 pipeline {
     agent any
-       environment {
+        
+     }
+environment {
     PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
 }
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean deploy' 
             }
         }
+       stage('SonarQube analysis') {
+       environment {
+         scannerHome = tool 'sonar-scanner'
     }
+    steps{
+    withSonarQubeEnv('sonarqube-server')
+      sh "${scannerHome}/bin/sonar-scanner"
+
+  }
+}
+}
+    }
+
 }
 
        
