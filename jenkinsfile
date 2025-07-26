@@ -1,27 +1,35 @@
 pipeline {
     agent any
-        
-environment {
-    PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
-}
+
+    environment {
+        PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
+    }
+
+    tools {
+        maven 'maven'              // If you have configured Maven in Jenkins Global Tools
+        jdk 'jdk-17'               // Optional: If you need a specific JDK
+    }
+
     stages {
         stage('Build') {
             steps {
-                sh 'mvn clean deploy' 
+                sh 'mvn clean deploy'
             }
         }
-       stage('SonarQube analysis') {
-       environment {
-         scannerHome = tool 'sonar-scanner'
-    }
-    steps{
-    withSonarQubeEnv('sonarqube-server')
-      sh "${scannerHome}/bin/sonar-scanner"
 
-  }
+        stage('SonarQube analysis') {
+            environment {
+                scannerHome = tool 'sonar-scanner'
+            }
+            steps {
+                withSonarQubeEnv('sonarqube-server') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+            }
+        }
+    }
 }
-}
-    
+
 
 
 
