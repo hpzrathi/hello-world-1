@@ -1,32 +1,29 @@
 pipeline {
-    agent any
-
-    environment {
-        PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
-        // Make sure SONAR_TOKEN is securely stored as a Jenkins secret
-    }
-
+    agent {
+        node {
+            label "maven-slave"
+        }
+     }
+environment {
+    PATH = "/opt/apache-maven-3.9.11/bin:$PATH"
+}
     stages {
-        stage('Build & Analyze') {
+        stage('Build') {
             steps {
-                withSonarQubeEnv('sonarqube-server') {
-                    sh """
-                    mvn clean verify sonar:sonar \\
-                        -Dsonar.projectKey=mydemoorg3_mydemoproject3 \\
-                        -Dsonar.host.url=https://sonarcloud.io/ \\
-                        -Dsonar.login=${sonarqube-cred}
-                    """
-                }
+                sh 'mvn clean deploy' 
             }
         }
+       stage('SonarQube analysis') {
+       environment {
+         scannerHome = tool 'sonar-scanner'
     }
+    steps{
+    withSonarQubeEnv('sonarqube-server')
+      sh "${scannerHome}/bin/sonar-scanner"
+
+  }
 }
+}
+    }
 
-
-
-       
-               
-           
-       
-    
-
+}
