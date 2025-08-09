@@ -6,4 +6,4 @@ phases:
       java: corretto17
   build:
     commands:
-      - mvn clean deploy -DskipTests -X
+      - mvn clean install 
