@@ -10,6 +10,6 @@ phases:
       
 artifacts:
   files:
-    - target/webapp.war
+    - /root/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war
   discard-paths: yes
 
