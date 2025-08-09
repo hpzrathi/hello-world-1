@@ -7,3 +7,9 @@ phases:
   build:
     commands:
       - mvn clean install 
+      
+artifacts:
+  files:
+    - target/webapp.war
+  discard-paths: yes
+
