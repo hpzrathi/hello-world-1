@@ -13,7 +13,7 @@ artifacts:
     - /root/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war
   discard-paths: yes
     post_build:
-    commands:
-      - echo "Uploading WAR to S3..."
-      - aws s3 cp /root/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war s3://mydemobucket08062025/webapp.war
+      commands:
+         - echo "Uploading WAR to S3..."
+         - aws s3 cp /root/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war s3://mydemobucket08062025/webapp.war
 
