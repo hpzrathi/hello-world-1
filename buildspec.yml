@@ -10,7 +10,7 @@ phases:
   post_build:
     commands:
       - echo "Uploading WAR to S3..."
-      - aws s3 cp /root/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war s3://mydemobucket13092025/mydemojavaproject
+      - aws s3 cp /root/.m2/repository/com/example/maven-project/webapp/1.0-SNAPSHOT/webapp-1.0-SNAPSHOT.war s3://mydemobucket13092025/
 
 artifacts:
   files:
